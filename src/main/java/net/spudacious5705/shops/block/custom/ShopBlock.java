@@ -178,22 +178,27 @@ public class ShopBlock extends BlockWithEntity implements BlockEntityProvider{
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-
-        if (world.isClient) return ActionResult.SUCCESS;
-
-        BlockEntity be = world.getBlockEntity(pos);
-
-        if(!( be instanceof ShopEntity shopEntity && player != null)) return ActionResult.FAIL;
-
-
-        setOwner(world, pos, player);
-
-
-        NamedScreenHandlerFactory screenHandlerFactory = (ShopEntity)world.getBlockEntity(pos);
-        if (screenHandlerFactory != null) {
-            player.openHandledScreen(screenHandlerFactory);
+        // Only run on the server
+        if (world.isClient) {
+            BlockEntity be = world.getBlockEntity(pos);
+            return (be instanceof ShopEntity) ? ActionResult.SUCCESS : ActionResult.PASS;
         }
 
+        // Verify Block is Shop
+        BlockEntity be = world.getBlockEntity(pos);
+        if (!(be instanceof ShopEntity shopEntity)) {
+            return ActionResult.FAIL;
+        }
+
+        // Claim shop block (should be claimed on placement...but just in case)
+        setOwner(world, pos, player);
+
+        // Get the screen handler factory from the BlockEntity
+        NamedScreenHandlerFactory screenHandlerFactory = shopEntity;
+        if (screenHandlerFactory == null) {
+            return ActionResult.FAIL;
+        }
+        player.openHandledScreen(screenHandlerFactory);
         return ActionResult.SUCCESS;
     }
 
