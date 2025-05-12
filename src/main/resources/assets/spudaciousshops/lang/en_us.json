@@ -21,5 +21,6 @@
   "item.spudaciousshops.shop_warped": "Warped Shop",
   "block.spudaciousshops.shop_jungle": "Jungle Shop",
   "item.spudaciousshops.shop_jungle": "Jungle Shop",
-  "itemGroup.spudaciousshops.shop_item_group": "Spud's shops"
+  "itemGroup.spudaciousshops.shop_item_group": "Spud's shops",
+  "message.spuds-shops.cannot_break.not_owner": "You do not own this shop!"
 }

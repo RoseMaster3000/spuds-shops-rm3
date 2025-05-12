@@ -34,6 +34,8 @@ import net.spudacious5705.shops.screen.ShopScreenHandlerCustomer;
 import net.spudacious5705.shops.screen.ShopScreenHandlerOwner;
 import org.jetbrains.annotations.Nullable;
 
+import net.spudacious5705.shops.SpudaciousShops;
+
 import java.util.UUID;
 
 public class ShopEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPosPayload>{
@@ -290,6 +292,10 @@ public class ShopEntity extends BlockEntity implements ExtendedScreenHandlerFact
     }
 
     public boolean canBreak(PlayerEntity player) {
+        if (player == null) {
+            SpudaciousShops.LOGGER.info("[ShopEntity.canBreak] Player is NULL. Returning false.");
+            return false;
+        }
         if(player.isCreative()){return true;}
         return this.isOwner(player.getUuid());
     }

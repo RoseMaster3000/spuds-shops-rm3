@@ -3,6 +3,7 @@ package net.spudacious5705.shops;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.spudacious5705.shops.event.ShopProtectionManager;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroups;
 import net.spudacious5705.shops.block.ModBlocks;
@@ -28,7 +29,7 @@ public class SpudaciousShops implements ModInitializer {
 		ModBlockEntities.registerBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
 		AttackBlockCallback.EVENT.register(new ShopBreakHandler());
-
+		ShopProtectionManager.register();
 		ModItemGroups.initialise();
 
 	}
